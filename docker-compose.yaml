@@ -1,0 +1,29 @@
+version: '2.3'
+
+services:
+  django:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.django
+    tty: true
+    image: django:1.0
+    container_name: django
+    ports:
+      - "8000:8000"
+    networks:
+      - dockernetwork
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.nginx
+    tty: true
+    image: nginx:1.0
+    container_name: nginx
+    ports:
+      - "8090:80"
+    networks:
+      - dockernetwork
+
+networks:
+  dockernetwork:
+    driver: bridge
